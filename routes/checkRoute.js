@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
 		if (url.includes("test-phishing")) {
 			status = "unsafe";
 			reason = "test_phishing_trigger";
-			redirectUrl = "#";
+			redirectUrl = "http://localhost:3000/tips-and-guides";
 		}
 
 		// Return the result

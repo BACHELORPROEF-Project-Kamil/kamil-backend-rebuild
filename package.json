@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/BACHELORPROEF-Project-Kamil/kamil-backend-rebuild#readme",
   "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
     "axios": "^1.16.1",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

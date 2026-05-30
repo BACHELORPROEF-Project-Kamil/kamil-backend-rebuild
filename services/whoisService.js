@@ -1,3 +1,4 @@
+// Axios over regular fetch. Axios is more robust and is nicer to work with.
 const axios = require("axios");
 
 async function getDomainAgeInMonths(hostname) {
@@ -6,7 +7,7 @@ async function getDomainAgeInMonths(hostname) {
 
 		const response = await axios.get(`https://www.whoisjson.com/api/v1/whois/?domain=${hostname}`, {
 			headers: {
-				Authorization: apiKey,
+				Authorization: `TOKEN=${apiKey}`,
 			},
 		});
 

@@ -4,7 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
-const connectToDatabase = require("./lib/db");
+const connectToDatabase = require("../lib/db");
 
 const app = express();
 
@@ -19,17 +19,15 @@ app.use(cors({
 
 app.use(express.json());
 
-// Rate Limiting
 const limiter = rateLimit({
-	windowMs: 1 * 60 * 1000,
-	max: 60,
-	standardHeaders: true,
-	legacyHeaders: false,
-	message: "Too many requests from this IP, please try again after 1 minute",
+  windowMs: 1 * 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: "Too many requests from this IP, please try again after 1 minute",
 });
 app.use(limiter);
 
-// Middleware to ensure DB connection
 app.use(async (req, res, next) => {
   try {
     await connectToDatabase();
@@ -42,42 +40,35 @@ app.use(async (req, res, next) => {
 
 // ROUTES
 app.get("/", (req, res) => {
-	res.send("Backend is running...");
+  res.json({ message: "Kamil Backend Rebuild is live op Vercel!" });
 });
 
 // WHOIS API ROUTE
-app.use("/api/check-url", require("./routes/checkRoute"));
+app.use("/api/check-url", require("../routes/checkRoute"));
 
 // STATS API ROUTE
-app.use("/api/stats", require("./routes/statsRoute"));
+app.use("/api/stats", require("../routes/statsRoute"));
 
 // 404 FALLBACK
 app.use((req, res) => {
-	res.status(404).json({
-		error: "Endpoint not found",
-		path: req.originalUrl,
-	});
-});
-
-app.use((err, req, res, next) => {
-	const isProduction = process.env.NODE_ENV === "production";
-	
-	if (!isProduction) {
-		console.error("Unexpected crash: ", err.stack);
-	}
-
-	res.status(500).json({
-		error: "Internal server error",
-		message: isProduction ? "An unexpected error occurred" : err.message,
-	});
-});
-
-const PORT = process.env.PORT || 5001;
-
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log("Server is running on port " + PORT);
+  res.status(404).json({
+    error: "Endpoint not found",
+    path: req.originalUrl,
   });
-}
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  const isProduction = process.env.NODE_ENV === "production";
+  
+  if (!isProduction) {
+    console.error("Unexpected crash: ", err.stack);
+  }
+
+  res.status(500).json({
+    error: "Internal server error",
+    message: isProduction ? "An unexpected error occurred" : err.message,
+  });
+});
 
 module.exports = app;

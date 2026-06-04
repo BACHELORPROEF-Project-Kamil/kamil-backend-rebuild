@@ -2,11 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+const compression = require("compression");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
+const limiter = rateLimit({
+	windowMs: 1 * 60 * 1000,
+	max: 60,
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: "Too many requests from this IP, please try again after 1 minute",
+});
+
+app.use(helmet());
+app.use(compression());
 app.use(cors());
 app.use(express.json());
+
+app.use(limiter);
 
 if (!process.env.MONGO_URI) {
     console.error("MONGO_URI is not defined in environment variables");
@@ -34,18 +49,22 @@ app.use("/api/stats", require("./routes/statsRoute"));
 
 // 404 FALLBACK
 app.use((req, res) => {
-	res.status(400).json({
+	res.status(404).json({
 		error: "Endpoint not found",
 		path: req.originalUrl,
-		tip: "Please check backend to see if this endpoint exists",
 	});
 });
 
 app.use((err, req, res, next) => {
-	console.error("Unexpected crash: ", err.stack);
+	const isProduction = process.env.NODE_ENV === "production";
+	
+	if (!isProduction) {
+		console.error("Unexpected crash: ", err.stack);
+	}
+
 	res.status(500).json({
 		error: "Internal server error",
-		message: err.message,
+		message: isProduction ? "An unexpected error occurred" : err.message,
 	});
 });
 

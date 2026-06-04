@@ -34,7 +34,7 @@ async function processUrlCheck(req, res) {
 			},
 		});
 	} catch (err) {
-		console.log("Error in checkController: ", err);
+		console.error("Error in checkController: ", err);
 		res.status(500).json({ error: "Internal server error" });
 	}
 }

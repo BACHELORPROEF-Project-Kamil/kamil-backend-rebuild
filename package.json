@@ -21,8 +21,6 @@
   },
   "homepage": "https://github.com/BACHELORPROEF-Project-Kamil/kamil-backend-rebuild#readme",
   "dependencies": {
-    "@tensorflow/tfjs": "^4.22.0",
-    "@tensorflow/tfjs-node": "^4.22.0",
     "axios": "^1.16.1",
     "compression": "^1.8.1",
     "cors": "^2.8.6",

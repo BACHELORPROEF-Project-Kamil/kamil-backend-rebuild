@@ -8,8 +8,6 @@ async function syncStats(req, res) {
 			return res.status(400).json({ error: "Missing urlsChecked or checksPerformed in request body" });
 		}
 
-		console.log(`Syncing stats: ${urlsChecked} URLs checked, ${checksPerformed} checks performed`);
-
 		await Stats.updateOne(
 			{ name: "global_counters" },
 			{
@@ -26,7 +24,7 @@ async function syncStats(req, res) {
 			message: "Statistics synced successfully",
 		});
 	} catch (err) {
-		console.log("Error in syncStats: ", err);
+		console.error("Error in syncStats: ", err);
 		res.status(500).json({ error: "Internal server error" });
 	}
 }
@@ -47,7 +45,7 @@ async function getGlobalStats(req, res) {
 			totalChecksPerformed: stats.totalChecksPerformed,
 		});
 	} catch (err) {
-		console.log("Error in getGlobalStats: ", err);
+		console.error("Error in getGlobalStats: ", err);
 		res.status(500).json({ error: "Internal server error" });
 	}
 }

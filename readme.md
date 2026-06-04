@@ -88,6 +88,7 @@ This is the repository for the **backend service** of my bachelor's thesis at **
 * [Gemini AI](https://gemini.google.com/) - Utilized for logic optimization and research.
 * [Gemini CLI](https://geminicli.com/) - Advanced agentic CLI used for codebase orchestration and automation.
 * [GitHub Copilot](https://github.com/copilot) - AI pair programmer for rapid prototyping.
+* [Project cleanup](./AI_CHATS/project_cleanup.md) - Documentaton of project cleanup.
 
 ---
 

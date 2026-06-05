@@ -90,6 +90,10 @@ This is the repository for the **backend service** of my bachelor's thesis at **
 * [GitHub Copilot](https://github.com/copilot) - AI pair programmer for rapid prototyping.
 * [Project cleanup](./AI_CHATS/project_cleanup.md) - Documentaton of project cleanup.
 
+### 🏭 Hosting
+* [Domain name](https://combell.be) - Domain name provider.
+* [Host](https://vercel.com) - Hosting provider.
+
 ---
 
 ## 📄 License

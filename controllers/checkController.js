@@ -22,7 +22,7 @@ async function processUrlCheck(req, res) {
 
 		const ageInMonths = await getDomainAgeInMonths(hostname);
 
-		let domainRegistrationLengthScore = ageInMonths > 12 ? -1 : 1;
+		let domainRegistrationLengthScore = ageInMonths > 12 ? 1 : -1;
 		let ageOfDomainScore = ageInMonths >= 6 ? 1 : -1;
 
 		res.json({
